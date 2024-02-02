@@ -1,5 +1,6 @@
 package ru.geekbrain.example3sem3hometask.repository;
 
+import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -23,13 +24,14 @@ public class UserRepository {
     }
 
     public User save(User user) {
-        String sql = "INSERT INTO userTable (firstName,lastName) VALUES ( ?, ?)";
-        jdbcTemplate.update(sql, user.getName(), user.getAge());
+        String sql = "INSERT INTO userTable VALUES ( ?, ?, ?)";
+        jdbcTemplate.update(sql, user.getName(), user.getAge(), user.getEmail());
         return user;
     }
 
+    @PostConstruct
     public void initTable() {
-        String sql = "CREATE TABLE IF NOT EXISTS userTable(name VARCHAR,age integer,email VARCHAR);";
-        jdbcTemplate.update(sql);
+        String sqlInitTable = "CREATE TABLE IF NOT EXISTS userTable(name VARCHAR,age integer,email VARCHAR);";
+        jdbcTemplate.update(sqlInitTable);
     }
 }
