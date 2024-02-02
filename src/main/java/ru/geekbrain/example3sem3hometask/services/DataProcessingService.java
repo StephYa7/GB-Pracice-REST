@@ -15,6 +15,7 @@ public class DataProcessingService {
     public UserRepository getRepository() {
         return repository;
     }
+
     @Autowired
     private UserRepository repository;
 
@@ -36,10 +37,5 @@ public class DataProcessingService {
                 .mapToInt(User::getAge)
                 .average()
                 .orElse(0);
-    }
-
-    public void  addUserToList(User user)
-    {
-        repository.getUsers().add(user);
     }
 }
