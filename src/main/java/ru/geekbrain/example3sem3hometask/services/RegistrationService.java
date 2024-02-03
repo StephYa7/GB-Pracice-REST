@@ -16,7 +16,8 @@ public class RegistrationService {
 
 
     public void processRegistration(String name, int age, String email) {
-        userService.createUser(name, age, email);
+        User newUser = userService.createUser(name, age, email);
+        dataProcessingService.getRepository().save(newUser);
         notificationService.sendNotification("User named : " + name + " eMail:" + email + "has been created ");
 
     }

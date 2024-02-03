@@ -23,20 +23,24 @@ public class UserController {
         if (user == null) {
             throw new IllegalArgumentException();
         }
-        registrationService.getDataProcessingService().getRepository().save(user);
+//        registrationService.getDataProcessingService().getRepository().save(user);
+
+        registrationService.processRegistration(user.getName(), user.getAge(), user.getEmail());
+
         return "user added";
     }
 
     @PostMapping()
-    public String userAddFromParam(@RequestParam("nm") String name,
-                                   @RequestParam("ag") int age,
-                                   @RequestParam("em") String email) {
-        User newUser = new User();
-        newUser.setName(name);
-        newUser.setAge(age);
-        newUser.setEmail(email);
+    public String userAddFromParam(@RequestParam("name") String name,
+                                   @RequestParam("age") int age,
+                                   @RequestParam("email") String email) {
+//        User newUser = new User();
+//        newUser.setName(name);
+//        newUser.setAge(age);
+//        newUser.setEmail(email);
+//        registrationService.getDataProcessingService().getRepository().save(user);
 
-        registrationService.getDataProcessingService().getRepository().save(newUser);
+        registrationService.processRegistration(name, age, email);
         return "user added";
     }
 }
